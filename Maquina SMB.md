@@ -1,12 +1,12 @@
 Echamos a correr la maquina 
-![](imagen1.png)
+![](imagen3.png)
 Luego echamos un nmp para poder ver los puertos abiertos en la IP 192.168.1.118
 ![](imagen2.png)
 
 Notamos que esta abierto el puerto 445 que es para el protocolo SMB 
 
 Al ver que el puerto SMB esta abierto vamos a hacer un escaneo con "smbmap" para notar si hay carpetas compartidas que podemos ver. 
-![](imagen3.png)
+![](imagen1.png)
 Al correr el comando "smbmap -H (IP)" quisimos ver las carpetas compartidas pero notamos que no tenemos acceso. 
 Esto no termina acá, aplicaremos fuerza bruta contra este protocolo con Hydra para ver si hay un usuario valido. 
 ``` bash 
