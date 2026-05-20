@@ -1,44 +1,96 @@
-Echamos a correr la maquina 
-![](./imagen3.png)
-Luego echamos un nmp para poder ver los puertos abiertos en la IP 192.168.1.118
+# 🔐 Laboratorio SMB - Enumeración y Explotación
+
+## 🎯 Objetivo
+
+El objetivo de este laboratorio es analizar la seguridad del servicio SMB (puerto 445), realizando tareas de reconocimiento, enumeración y explotación para identificar posibles vulnerabilidades.
+
+---
+
+## 🧠 1. Reconocimiento inicial
+
+Se inicia la máquina víctima en un entorno controlado.
+
+![](./imagen1.png)
+
+---
+
+## 📡 2. Escaneo de puertos
+
+Se realiza un escaneo con Nmap para identificar puertos abiertos en la dirección IP `192.168.1.118`.
+
 ![](./imagen2.png)
 
-Notamos que esta abierto el puerto 445 que es para el protocolo SMB 
+Se detecta el puerto **445/TCP**, correspondiente al servicio SMB.
 
-Al ver que el puerto SMB esta abierto vamos a hacer un escaneo con "smbmap" para notar si hay carpetas compartidas que podemos ver. 
-![](./imagen1.png)
-Al correr el comando "smbmap -H (IP)" quisimos ver las carpetas compartidas pero notamos que no tenemos acceso. 
-Esto no termina acá, aplicaremos fuerza bruta contra este protocolo con Hydra para ver si hay un usuario valido. 
-``` bash 
- hydra -l admin_backup -P /usr/share/wordlists/rockyou.txt smb://192.168.1.118 
-``` 
+---
 
--l : sirve para poder indicar un usuario valido, en este caso sabemos que el usuario valido es admin_backup 
--P : sirve para indicar una ruta de diccionario, en este caso el rockyou 
-smb: aclaramos el protocolo y la IP de la maquina 
+## 📂 3. Enumeración del servicio SMB
 
-Aquí haremos algo diferente, no podía correr el Hydra Rockyou, para verificar entonces use "enum4linux" para encontrar los usuarios. 
-![](./imagen4.png)
-Como vemos si aparece el usuario admin, probaremos solo poniendo ese usuario con Hydra 
+Se utiliza la herramienta `smbmap` para identificar recursos compartidos en el sistema.
 
-Luego de muchos intentos el problema si era el usuario, era solo admin 
-![](./imagen5.png)
-Si pudimos encontrar el usuario y el password. 
-Pero esto no termina acá
- Ahora hacemos un smbclient para ingresar la contraseña 
- ![](./imagen6.png)
-encontramos dos archivos y los descargamos con Get 
-observemos que tienen 
-![](./imagen7.png)
-el primer archivo encontramos la contraseña Summer2019!
-ahora en root 
-![](./imagen8.png)
-Obtuvimos la Flag ! :
+![](./imagen3.png)
+
+El resultado indica que no se tiene acceso a los recursos compartidos sin credenciales válidas.
+
+---
+
+## 🔓 4. Ataque de fuerza bruta
+
+Se realiza un ataque de fuerza bruta utilizando Hydra para intentar obtener credenciales válidas.
+
+```bash
+hydra -l admin_backup -P /usr/share/wordlists/rockyou.txt smb://192.168.1.118
+
+Se identifica que el usuario correcto es admin tras pruebas de enumeración adicionales.
+
+🔎 5. Enumeración de usuarios
+
+Se utiliza enum4linux para obtener información adicional del sistema.
+
+Se confirma la existencia del usuario admin.
+
+🔑 6. Acceso al servicio SMB
+
+Se utiliza smbclient para acceder al recurso compartido utilizando las credenciales obtenidas.
+
+Dentro del recurso se encuentran dos archivos, los cuales son descargados utilizando el comando get.
+
+📄 7. Análisis de archivos
+
+Al analizar los archivos descargados, se obtiene información sensible.
+
+Se encuentra una contraseña:
+
+Summer2019!
+🧾 8. Acceso final y obtención de la flag
+
+Utilizando la información obtenida, se logra acceder al sistema objetivo.
+
+Se obtiene la flag del sistema:
+
 HL{4dm1n_b4ckup_3xf1ltr4ti0n}
-Lab Completado 
+🏁 Conclusión
 
-Que pude aprender? 
-Como vulnerar el protocolo SMB p445
-Como usar Hydra 
-Como usar smbclient y conectarse de manera remota. 
-Fue una experiencia larga, tuve errores que me tomaron tiempo pero pude avanzar. Un comentario que me haría a mi mismo es el prestar atención al escribir el comando, esto si no le presto atención podría hacerme perder mucho tiempo. 
+En este laboratorio se aplicaron técnicas de reconocimiento, enumeración y explotación sobre el protocolo SMB (puerto 445).
+
+Se logró:
+
+Identificar el servicio SMB expuesto
+Enumerar usuarios del sistema
+Obtener credenciales mediante técnicas de fuerza bruta y análisis
+Acceder al recurso compartido
+Extraer información sensible
+Obtener la flag final
+📚 Aprendizajes
+Enumeración de servicios SMB
+Uso de herramientas como:
+Nmap
+smbmap
+hydra
+enum4linux
+smbclient
+Importancia de la seguridad en servicios expuestos en red
+Impacto de credenciales débiles o expuestas
+🧠 Reflexión personal
+
+Este laboratorio presentó dificultades en la fase de obtención de credenciales, lo que permitió reforzar habilidades de análisis, persistencia y uso de herramientas de seguridad ofensiva. La experiencia fue clave para comprender cómo pequeños errores de configuración pueden comprometer completamente un sistema.
