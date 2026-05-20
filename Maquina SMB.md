@@ -1,6 +1,5 @@
 Echamos a correr la maquina 
 ![[Pasted image 20260508021230.png]]
-
 Luego echamos un nmp para poder ver los puertos abiertos en la IP 192.168.1.118
 ![[Pasted image 20260508021336.png]]
 
