@@ -37,13 +37,15 @@ El resultado indica que no se tiene acceso a los recursos compartidos sin creden
 ## 🔓 4. Ataque de fuerza bruta
 
 Se realiza un ataque de fuerza bruta utilizando Hydra para intentar obtener credenciales válidas.
+![](./imagen4.png)
 
-```bash
 hydra -l admin_backup -P /usr/share/wordlists/rockyou.txt smb://192.168.1.118
 
 Se identifica que el usuario correcto es admin tras pruebas de enumeración adicionales.
 
 🔎 5. Enumeración de usuarios
+
+![](./imagen5.png)
 
 Se utiliza enum4linux para obtener información adicional del sistema.
 
@@ -51,18 +53,25 @@ Se confirma la existencia del usuario admin.
 
 🔑 6. Acceso al servicio SMB
 
+![](./imagen6.png)
+
 Se utiliza smbclient para acceder al recurso compartido utilizando las credenciales obtenidas.
 
 Dentro del recurso se encuentran dos archivos, los cuales son descargados utilizando el comando get.
 
 📄 7. Análisis de archivos
 
+![](./imagen7.png)
+
 Al analizar los archivos descargados, se obtiene información sensible.
 
 Se encuentra una contraseña:
 
 Summer2019!
+
 🧾 8. Acceso final y obtención de la flag
+
+![](./imagen8.png)
 
 Utilizando la información obtenida, se logra acceder al sistema objetivo.
 
