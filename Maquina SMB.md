@@ -10,7 +10,7 @@ El objetivo de este laboratorio es analizar la seguridad del servicio SMB (puert
 
 Se inicia la máquina víctima en un entorno controlado.
 
-![](./imagen1.png)
+![](./imagen3.png)
 
 ---
 
@@ -28,7 +28,7 @@ Se detecta el puerto **445/TCP**, correspondiente al servicio SMB.
 
 Se utiliza la herramienta `smbmap` para identificar recursos compartidos en el sistema.
 
-![](./imagen3.png)
+![](./imagen1.png)
 
 El resultado indica que no se tiene acceso a los recursos compartidos sin credenciales válidas.
 
