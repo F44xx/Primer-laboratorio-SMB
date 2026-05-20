@@ -100,6 +100,8 @@ enum4linux
 smbclient
 Importancia de la seguridad en servicios expuestos en red
 Impacto de credenciales débiles o expuestas
+
 🧠 Reflexión personal
+
 
 Este laboratorio presentó dificultades en la fase de obtención de credenciales, lo que permitió reforzar habilidades de análisis, persistencia y uso de herramientas de seguridad ofensiva. La experiencia fue clave para comprender cómo pequeños errores de configuración pueden comprometer completamente un sistema.
